@@ -1,0 +1,28 @@
+{
+  "name": "class-manager",
+  "version": "1.0.0",
+  "description": "Class management client designed to help instructors manage classroom activities",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "start": "node index.js",
+    "watch": "nodemon index.js",
+    "startDB": "mkdir -p ./db && mongod --dbpath ./db"
+  },
+  "author": "Jacob Knaack",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.6.10",
+    "node-sass": "^4.12.0",
+    "node-sass-middleware": "^0.11.0"
+  },
+  "devDependencies": {
+    "heroku": "^7.29.0",
+    "jest": "^24.9.0",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.19.1"
+  }
+}
