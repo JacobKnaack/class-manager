@@ -2,19 +2,27 @@
 
 const cwd = process.cwd();
 const fs = require('fs');
+const path = require('path');
 const express = require('express');
+const mongoose = require('mongoose');
 const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 const viewRouter = require('./routes/views.js');
 
-app.use(express.static('./public'));
-app.use(viewRouter);
+const notFound = require('./middleware/404.js');
+const serverError = require('./middleware/500.js');
+
 app.use(sassMiddleware({
   src: __dirname + '/sass',
   dest: cwd + '/public/style',
   debug: true
 }));
+app.use(express.static(path.join(cwd, './public')));
+app.use(viewRouter);
+
+app.use('*', notFound);
+app.use(serverError);
 
 module.exports = {
   app,
@@ -23,7 +31,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
       let configData;
       if (fs.existsSync(configPath)) {
-        configData = require(configPath);
+        configData = require(configPath).json;
         for (let key in Object.keys(configData)) {
           app.locals[key] = configData[key];
         }
@@ -39,8 +47,16 @@ module.exports = {
         }
         app.locals = configData;
       }
-      reject('Server configurataion error');
+      reject('Server configuration error');
     });
+  },
+
+  mongoConnect: () => {
+    const options = {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+    }
+    mongoose.connect(process.env.MONGODB_URI, options);
   },
 
   start: (port) => {

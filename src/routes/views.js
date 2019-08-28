@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', renderHome);
-router.get('/:student', renderStudent);
+router.get('/student/:student', renderStudent);
 
 function renderHome(request, response) {
   response.send('index.html');

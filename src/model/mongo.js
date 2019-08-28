@@ -5,19 +5,21 @@ class Model {
     this.schema = schema;
   }
 
-  get() {
+  get(_id) {
+    if (_id) return this.schema.findOne({ _id });
+    return this.schema.find({});
+  }
+
+  create(data) {
+    const newModel = new this.schema(data);
+    return newModel.save();
+  }
+
+  update(_id, record) {
 
   }
 
-  create() {
-
-  }
-
-  update() {
-
-  }
-
-  delete() {
+  delete(_id) {
 
   }
 }
