@@ -3,18 +3,15 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', renderHome);
-router.get('/student/:student', renderStudent);
+router.get('/', (request, response) => {
+  response.render('pages/index');
+});
 
-function renderHome(request, response) {
-  response.send('index.html');
-}
-
-function renderStudent(request, response, next) {
+router.get('/student/:student', (request, response, next) => {
   if (request.params.student) {
-    response.send('/views/student.html');
+    response.render('pages/student');
   }
   next('No Student provided');
-}
+});
 
 module.exports = router;

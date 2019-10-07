@@ -1,3 +1,10 @@
-body {
+body, html {
   margin: 0;
+  font-family: Roboto;
+  min-height: 100vh; }
+
+h1 {
+  font-size: 200%; }
+
+h1, h2, h3, h4, h5, h6, p, span {
   font-family: Roboto; }

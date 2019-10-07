@@ -1,4 +1,31 @@
-header {
-  height: 400px;
-  padding: 10px;
+.header {
+  min-height: 50px;
+  height: auto;
+  padding: 0 0 0 15px;
+}
+
+.menu-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.row-center {
+  justify-content: center;
+}
+
+.row-space {
+  justify-content: space-around;
+}
+
+.menu-column {
+  min-width: 50px;
+}
+
+.center-column {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }

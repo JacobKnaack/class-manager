@@ -9,9 +9,8 @@ function handleSignIn() {
   const password = document.getElementById('password').value;
   const base64 = btoa(`${username}:${password}`);
 
-  sendRequest(`${window.location.origin}/students`, {
+  sendRequest(`${window.location.origin}/api/signin`, {
     method: "POST",
-    // extended:  true,
     headers: {
       'Authorization': `Basic ${base64}`,
     },

@@ -8,12 +8,12 @@ exports.roles = {
   STUDENT: 'STUDENT',
   INTRUCTOR: 'INSTRUCTOR',
   TA: 'TA',
-  ADMIN: 'ADMIN',
 };
 
 const User = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: {type: String, required: true },
+  isAdmin: {type: Boolean, required: true, default: false },
 });
 
 User.pre('save', async function() {
@@ -52,7 +52,7 @@ User.statics.authenticateBasic = function(auth) {
   let query = {username:auth.username};
   return this.findOne(query)
     .then(user => user && user.comparePassword(auth.password))
-    .catch(console.error);
+    .catch((e) => e);
 };
 
 User.methods.comparePassword = function(password) {
