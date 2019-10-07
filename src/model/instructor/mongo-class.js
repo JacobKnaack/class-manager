@@ -7,10 +7,6 @@ const Model = require('../mongo.js');
  * @params {object} schema
  */
 
-class Student extends Model {
-  constructor(schema) {
-    super(schema);
-  }
-}
+class Instructor extends Model {}
 
-module.exports = Student;
+module.exports = Instructor;

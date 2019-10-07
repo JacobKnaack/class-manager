@@ -3,8 +3,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/students', getStudents);
-// router.get('/student/:id', getStudentById);
+router.get('/api/students', getStudents);
+// router.get('/api/student/:id', getStudentById);
 
 function getStudents(req, res) {
 

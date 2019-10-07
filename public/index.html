@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="base.css" />
-  <link rel="stylesheet" href="module.css" />
-  <link rel="stylesheet" href="template.css" />
+  <link rel="stylesheet" href="style/base.css" />
+  <link rel="stylesheet" href="style/module.css" />
+  <link rel="stylesheet" href="style/template.css" />
   <title>CF Code Fellows Class Manager Manager</title>
 </head>
 
@@ -16,23 +16,24 @@
     <div id="title">
       <h1>Class Manager</h1>
     </div>
-
+    <h3>Manage your ongoing Coding courses</h3>
   </header>
   <main>
     <nav>
-
+      <ul>
+        <li><a>About</a></li>
+        <li><a></a></li>
+      </ul>
     </nav>
-    <section id="stats">
-
-    </section>
-    <section>
-      <div></div>
-      <div></div>
-      <div></div>
-    </section>
+    <form onsubmit="handleSignIn()" id="login-form">
+      <input type="text" id="username">
+      <input type="password" id="password">
+      <input type="submit" value="submit" />
+    </form>
   </main>
 
-  <script src="./js/students.js"></script>
+  <script src="./js/request.js"></script>
+  <script src="./js/auth.js"></script>
 </body>
 
 </html>

@@ -16,11 +16,13 @@ class Model {
   }
 
   update(_id, record) {
-
+    const filter = {_id};
+    return this.schema.findOneAndUpdate(filter, record);
   }
 
   delete(_id) {
-
+    const filter = {_id};
+    return this.schema.findOneAndDelete(filter);
   }
 }
 
