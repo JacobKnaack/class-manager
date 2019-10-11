@@ -3,12 +3,27 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (request, response) => {
-  response.render('pages/index');
+const url = require('../middleware/url');
+const authCookies = require('../middleware/authCookies');
+
+router.get('/', url, authCookies, (request, response) => {
+  const { location, authToken } = request;
+  response.render(
+    'pages/index',
+    {
+      location,
+      authToken,
+    },
+  );
+});
+
+router.get('/register', url, (request, response) => {
+  response.render('pages/register');
 });
 
 router.get('/student/:student', (request, response, next) => {
-  if (request.params.student) {
+  const { student } = request.params;
+  if (student) {
     response.render('pages/student');
   }
   next('No Student provided');

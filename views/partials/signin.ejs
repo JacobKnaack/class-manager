@@ -1,0 +1,40 @@
+<main id="landing" class="svg-background1">
+    <section id="actions" class="z-top flex-center trans">
+        <header class="header menu-column">
+            <div id="title">
+                <h1>CF Class Manager</h1>
+            </div>
+            <h3>Course Management Tool.</h3>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="<%= location %>/register">
+                            About
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<%= location %>/register">
+                            Register
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <form onsubmit="handleSignIn()" class="flex-center " id="login-form">
+                <input type="email" id="email">
+                <input type="password" id="password">
+                <input type="submit" value="Sign In" />
+            </form>
+        </main>
+    </section>
+    <section id="space">
+        <img id="signin-logo" src="https://i.stack.imgur.com/t60DL.gif" alt="A logo goes here"/>
+    </section>
+</main>
+
+<script>
+  document.getElementById("login-form").addEventListener("submit", function(event){
+    event.preventDefault()
+  });
+</script>

@@ -5,34 +5,15 @@
   <%- include('../partials/head'); -%>
 </head>
 
-<body id="landing">
-  <section id="actions">
-    <header class="header menu-column">
-      <div id="title">
-        <h1>CF Class Manager</h1>
-      </div>
-      <h3>Course Management Tool.</h3>
-      <nav>
-        <ul>
-          <li><a>About</a></li>
-          <li><a>Register</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <form onsubmit="handleSignIn()" class="center-column" id="login-form">
-        <input type="text" id="username">
-        <input type="password" id="password">
-        <input type="submit" value="submit" />
-      </form>
-    </main>
-  </section>
-  <section id="space">
-    <h2>Some Space</h2>
-  </section>
+<body>
+    <% if (authToken) { %>
+        <%- include('../partials/dashboard') -%>
+    <% } else { %>
+        <%- include('../partials/signin'); -%>
+    <% } %>
 
-  <script src="./js/request.js"></script>
-  <script src="./js/auth.js"></script>
+    <script src="./js/request.js"></script>
+    <script src="./js/auth.js"></script>
 </body>
 
 </html>

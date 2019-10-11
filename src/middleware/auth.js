@@ -1,5 +1,7 @@
 'use strict';
 
+const User = require('../model/user');
+
 module.exports = (capability) => {
 
   return function (request, response, next) {
@@ -20,11 +22,10 @@ module.exports = (capability) => {
     }
 
     function _authBasic(str) {
-      // str: am9objpqb2hubnk=
       let base64Buffer = Buffer.from(str, 'base64');
       let bufferString = base64Buffer.toString();
-      let [username, password] = bufferString.split(':');
-      let auth = {username,password};
+      let [email, password] = bufferString.split(':');
+      let auth = {email, password};
       return User.authenticateBasic(auth)
         .then(user => _authenticate(user) )
         .catch(_authError);

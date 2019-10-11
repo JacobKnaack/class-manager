@@ -1,5 +1,6 @@
 #login-form {
-  width: 300px; }
+  width: 300px;
+  margin: 0 auto; }
 
 #landing {
   width: 100%;
@@ -9,5 +10,21 @@
   align-items: center; }
 
 #actions, #space {
+  padding: 150px 0; }
+
+#space {
+  width: 100%; }
+
+#actions {
   width: 100%;
-  height: 100%; }
+  margin: 5vh 5vw;
+  height: calc(90vh - 300px); }
+
+#register {
+  width: 100%;
+  display: flex; }
+
+#signin-logo {
+  display: block;
+  max-width: 300px;
+  margin: 0 auto; }

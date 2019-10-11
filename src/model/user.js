@@ -2,70 +2,75 @@
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const jwt = require('json-web-token');
+const jwt = require('jsonwebtoken');
+
+const STUDENT = 'STUDENT';
+const INSTRUCTOR = 'INSTRUCTOR';
+const TA = 'TA';
 
 exports.roles = {
-  STUDENT: 'STUDENT',
-  INTRUCTOR: 'INSTRUCTOR',
-  TA: 'TA',
+  STUDENT,
+  INSTRUCTOR,
+  TA,
 };
 
-const User = mongoose.Schema({
+const user = mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: {type: String, required: true },
   isAdmin: {type: Boolean, required: true, default: false },
 });
 
-User.pre('save', async function() {
+user.pre('save', async function() {
   if (this.isModified('password'))
   {
     this.password = await bcrypt.hash(this.password, 10);
   }
 });
 
-User.statics.capabilities = {
+user.statics.capabilities = {
   STUDENT : ['read'],
   INSTRUCTOR: ['read', 'write', 'delete', 'update'],
   TA: ['read', 'update'],
 };
 
-User.methods.capabilities = function() {
+user.methods.capabilities = function() {
   switch(this.role) {
     case STUDENT:
-      return User.capabilities[this.role];
+      return user.capabilities[this.role];
     case INSTRUCTOR:
-      return User.capabilities[this.role];
+      return user.capabilities[this.role];
     case TA:
-      return User.capabilities[this.role];
+      return user.capabilities[this.role];
     default:
       return undefined;
   }
 };
 
-User.statics.authenticateToken = function(token) {
+user.statics.authenticateToken = function(token) {
   let parsedToken = jwt.verify(token, process.env.API_SECRET);
   let query = {_id: parsedToken.id};
   return this.findOne(query);
 };
 
-User.statics.authenticateBasic = function(auth) {
-  let query = {username:auth.username};
+user.statics.authenticateBasic = function(auth) {
+  let query = {email: auth.email};
   return this.findOne(query)
     .then(user => user && user.comparePassword(auth.password))
     .catch((e) => e);
 };
 
-User.methods.comparePassword = function(password) {
+user.methods.comparePassword = function(password) {
   return bcrypt.compare(password, this.password)
     .then(valid => valid ? this : null);
 }
 
-User.methods.generateToken = function(){
+user.methods.generateToken = function(){
   let tokenData = {
     id:this._id,
-    capabilities: (this.acl && this.acl.capabilities) || [],
+    capabilities: this.capabilities() || [],
   };
+
   return jwt.sign(tokenData, process.env.API_SECRET);
 }
 
-module.exports = mongoose.model('User', User);
+module.exports = mongoose.model('User', user);

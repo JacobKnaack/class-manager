@@ -2,21 +2,23 @@
 
 require('dotenv').config();
 const cwd = process.cwd();
-const path = require('path');
-const express = require('express');
-const mongoose = require('mongoose');
-const morgan = require('morgan');
+const path =           require('path');
+const express =        require('express');
+const cookieParser =   require('cookie-parser');
+const mongoose =       require('mongoose');
+const morgan =         require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 
 const app = express();
 
-const viewRouter = require('./routes/views.js');
-const authRouter = require('./routes/auth');
-const notFound = require('./middleware/not-found.js');
+const viewRouter =  require('./routes/views.js');
+const authRouter =  require('./routes/auth');
+const notFound =    require('./middleware/not-found.js');
 const serverError = require('./middleware/server-error.js');
 
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
+app.use(cookieParser());
 app.use(sassMiddleware({
   src: cwd + '/src/sass/',
   dest: cwd + '/public/style/',
@@ -40,6 +42,18 @@ module.exports = {
     };
 
     return mongoose.connect(process.env.MONGODB_URI, options)
+  },
+
+  initTestUser: (userData) => {
+    const User = require('./model/user');
+    const testUser = new User(userData)
+    return testUser.save()
+      .then(() => {
+        console.log(`Test user created : ${userData.email} / ${userData.password}`);
+      })
+      .catch(() => {
+        console.log(`Test user exists : ${userData.email} / ${userData.password}`);
+      });
   },
 
   start: (port) => {

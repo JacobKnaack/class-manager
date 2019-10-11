@@ -6,21 +6,28 @@ const authRouter = express.Router();
 const User = require('../model/user');
 const auth = require('../middleware/auth');
 
-authRouter.post('/api/signup', (req, res, next) => {
-  let user = new User(req.body);
+authRouter.post('/api/signup', (request, response, next) => {
+  const { body } = request;
+  const user = new User(body);
   user.save()
     .then( (user) => {
-      req.token = user.generateToken();
-      req.user = user;
-      res.set('token', req.token);
-      res.cookie('auth', req.token);
-      res.send(req.token);
-    }).catch(next({status: 401, message: 'Invalid User ID / Password'}));
+      request.token = user.generateToken();
+      request.user = user;
+      response.set('token', request.token);
+      response.cookie('auth', request.token);
+      response.send(request.token);
+    }).catch(e => {
+      next({
+      status: 401,
+      message: 'Invalid User ID / Password'
+    });
+  });
 });
 
-authRouter.post('/api/signin', auth(), (req, res, next) => {
-  res.cookie('auth', req.token);
-  res.send(req.token);
+authRouter.post('/api/signin', auth(), (request, response, next) => {
+  const { token } = request;
+  response.cookie('auth', token);
+  response.send(token);
 });
 
 module.exports = authRouter;
