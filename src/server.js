@@ -13,6 +13,7 @@ const app = express();
 
 const viewRouter =  require('./routes/views.js');
 const authRouter =  require('./routes/auth');
+const courseRouter = require('./routes/course');
 const notFound =    require('./middleware/not-found.js');
 const serverError = require('./middleware/server-error.js');
 
@@ -28,6 +29,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(cwd, './public')));
 app.use(authRouter);
 app.use(viewRouter);
+app.use(courseRouter);
 
 app.use('*', notFound);
 app.use(serverError);

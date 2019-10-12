@@ -64,9 +64,12 @@ user.methods.comparePassword = function(password) {
     .then(valid => valid ? this : null);
 }
 
-user.methods.generateToken = function(){
+user.methods.generateToken = function() {
   let tokenData = {
-    id:this._id,
+    id: this._id,
+    email: this.email,
+    firstName: this.firstName || null,
+    lastName: this.lastName || null,
     capabilities: this.capabilities() || [],
   };
 

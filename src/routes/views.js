@@ -5,6 +5,7 @@ const router = express.Router();
 
 const url = require('../middleware/url');
 const authCookies = require('../middleware/authCookies');
+const auth = require('../middleware/auth');
 
 router.get('/', url, authCookies, (request, response) => {
   const { location, authToken } = request;
@@ -21,7 +22,7 @@ router.get('/register', url, (request, response) => {
   response.render('pages/register');
 });
 
-router.get('/student/:student', (request, response, next) => {
+router.get('/student/:student', auth(), (request, response, next) => {
   const { student } = request.params;
   if (student) {
     response.render('pages/student');

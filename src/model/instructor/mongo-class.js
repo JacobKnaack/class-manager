@@ -1,12 +1,13 @@
 'use strict';
 
-const Model = require('../mongo.js');
+const MongooseModel = require('../mongo.js');
+const Schema = require('./schema');
 
 /**
- * Student Model extends mongoose model
+ * Instructor Model extends mongoose model
  * @params {object} schema
  */
 
-class Instructor extends Model {}
+class Instructor extends MongooseModel {};
 
-module.exports = Instructor;
+module.exports = new Instructor(Schema);
