@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --verbose",
+    "test:watch": "jest --verbose --watch",
     "start": "NODE_ENV=production node index.js",
     "watch": "NODE_ENV=development nodemon index.js",
     "start:db": "mkdir -p ./db && mongod --dbpath ./db"
@@ -24,9 +25,10 @@
     "node-sass-middleware": "^0.11.0"
   },
   "devDependencies": {
-    "heroku": "^7.29.0",
     "jest": "^24.9.0",
+    "mongodb-memory-server": "^5.2.8",
     "morgan": "^1.9.1",
-    "nodemon": "^1.19.1"
+    "nodemon": "^1.19.1",
+    "supertest": "^4.0.2"
   }
 }

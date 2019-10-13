@@ -26,6 +26,8 @@ app.use(sassMiddleware({
   debug: true,
   prefix: '/style'
 }));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(cwd, './public')));
 app.use(authRouter);
 app.use(viewRouter);

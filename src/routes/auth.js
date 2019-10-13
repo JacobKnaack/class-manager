@@ -18,8 +18,8 @@ authRouter.post('/api/signup', (request, response, next) => {
       response.send(request.token);
     }).catch(e => {
       next({
-      status: 401,
-      message: 'Invalid User ID / Password'
+      status: 400,
+      message: 'Bad Request',
     });
   });
 });
